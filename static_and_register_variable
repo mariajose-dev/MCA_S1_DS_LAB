@@ -1,0 +1,16 @@
+#include<stdio.h>
+
+void disp()
+{
+static int i=10;
+printf("%d\t",i++);
+}
+
+int main()
+{
+printf("Static variable example\n");
+disp();
+disp();
+disp();
+return 0;
+}
