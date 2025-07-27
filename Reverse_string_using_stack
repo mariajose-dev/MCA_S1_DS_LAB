@@ -1,0 +1,74 @@
+/* Program 16: Reverse a string using Stack@Maria Jose
+   Completed date: 26/07/2025
+*/
+
+#include <stdio.h>
+#define MAX 20
+
+void reverseStringUsingStack() {
+    char str[MAX], stack[MAX];
+    int top = -1, i,len=0;
+
+    // Input string
+    printf("Enter a string: ");
+    fgets(str, MAX, stdin);
+
+    // Remove newline if present and calculate length manually
+    for (i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '\n') {
+            str[i] = '\0';
+            break;
+        }
+        len++;
+    }
+
+    // Push all characters to stack
+    for (i = 0; i < len; i++) {
+    	if (top == MAX - 1) {
+            printf("**** Stack Overflow! Cannot push '%c' ****\n", str[i]);
+            break;
+        }
+        top++;
+        stack[top] = str[i];
+    }
+
+    // Pop all characters from stack to reverse
+    printf("Reversed string: ");
+    while (top >= 0) {
+        printf("%c", stack[top]);
+        top--;
+    }
+    printf("\n");
+}
+
+int menu()
+{
+    int choice;
+    printf("\n**MENU**\n");
+    printf("STRING REVERSE-1\nEXIT-2\nEnter your choice: ");
+    scanf("%d", &choice);
+    getchar(); // <-- consume leftover newline otherwise cannot input string and display reverse
+    return choice;
+}
+
+void stackCase()
+{
+    int value, choice;
+    while ((choice = menu()) != 2)
+    {
+        switch (choice)
+        {
+        case 1:
+            reverseStringUsingStack();
+            break;
+        default:
+            printf("Invalid choice. Try again.\n");
+        }
+    }
+}
+
+int main() {
+	printf("REVERSE OF STRING USING STACK\n------------------------\n");
+    stackCase();
+    return 0;
+}
