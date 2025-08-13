@@ -1,0 +1,90 @@
+//Program to find smallest element in stack@MariaJose
+//Completed On 13-8-2025
+
+#include<stdio.h>
+#define size 5
+
+void push(int stack[],int *t,int e)
+{
+	if(*t+1==size)
+		printf("\n!!Stack is Full!!\n");
+	else
+	{
+		stack[++(*t)]=e;
+		printf("Pushed element is %d\n",e);
+	}
+}
+
+void pop(int stack[],int *t)
+{
+	if(*t==-1)
+		printf("\n!!Stack is Empty!!\n");
+	else
+	{
+		printf("\nPopped element is %d\n",stack[(*t)--]);
+	}
+}
+
+void disp(int stack[],int top)
+{
+	if(top==-1)
+		printf("\n!!Stack is Empty!!\n");
+	else
+	{
+		printf("Stack is\n");
+		int i;
+		for(i=top;i>=0;i--)
+			printf("%d\n",stack[i]);
+	}
+}
+
+void smallest_in_stack(int stack[],int top)
+{
+	if(top==-1)
+		printf("\n!!Stack is Empty!!\n");
+	else
+	{
+		int i,small;
+		small=stack[top];
+		for(i=top;i>=0;i--)
+			{
+				if(small>stack[i])
+					small=stack[i];
+			}
+		printf("\nSmallest element in stack is %d",small);
+	}
+}
+
+void main()
+{
+	int stack[size],top=-1,element,ch;
+	printf("Smallest element in stack\n---------------------------------\n\n");
+	
+	do
+	{
+		printf("\n\nMENU\n1.Push\n2.Pop\n3.Display stack\n4.Smallest element in stack\n5.Exit\n");
+		printf("Enter your choice: ");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:
+				printf("\nEnter element to push to stack: ");
+				scanf("%d",&element);
+				push(stack,&top,element);
+				break;
+			case 2:
+				pop(stack,&top);
+				break;
+			case 3:
+				disp(stack,top);
+				break;
+			case 4:
+				smallest_in_stack(stack,top);
+				break;
+			case 5:
+				break;
+			default:
+				printf("\n!!Invalid choice, please choose from menu options between 1 to 5!!\n");
+		}	
+	}while(ch!=5);
+}
