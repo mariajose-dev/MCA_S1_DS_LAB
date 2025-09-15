@@ -1,0 +1,105 @@
+/* Program 10: Transpose of a matrix@Maria Jose
+   Completed date: 27/07/2025
+*/
+
+#include <stdio.h>
+
+#define MAX 5
+
+// Function to read matrix
+void readMatrix(int mat[MAX][MAX], int *r, int *c) {
+    int i, j;
+    printf("Enter number of rows (max %d): ", MAX);
+    scanf("%d", r);
+    printf("Enter number of columns (max %d): ", MAX);
+    scanf("%d", c);
+    
+    if (*r < 1 || *r > MAX || *c < 1 || *c > MAX) 
+	{
+    	printf("Error: Invalid matrix size, please try again\n");
+    	return;
+	}
+
+
+    printf("Enter elements of matrix (%d x %d):\n", *r, *c);
+    for (i = 0; i < *r; i++) {
+        for (j = 0; j < *c; j++) {
+            printf("Element [%d][%d]: ", i, j);
+            scanf("%d", &mat[i][j]);
+        }
+    }
+}
+
+// Function to display matrix
+void displayMatrix(int mat[MAX][MAX], int r, int c) {
+    int i, j;
+    if (r == 0 || c == 0) {
+        printf("Error: Matrix is empty.\n");
+        return;
+    }
+
+    printf("Matrix (%d x %d):\n", r, c);
+    for (i = 0; i < r; i++) {
+        for (j = 0; j < c; j++) {
+            printf("%d\t", mat[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+// Function to find and display transpose
+void transposeMatrix(int mat[MAX][MAX], int r, int c) {
+    int i, j;
+    if (r == 0 || c == 0) {
+        printf("Error: Matrix is empty. Cannot Transpose\n");
+        return;
+    }
+
+    printf("Transpose of the matrix (%d x %d):\n", c, r);
+    for (i = 0; i < c; i++) {
+        for (j = 0; j < r; j++) {
+            printf("%d\t", mat[j][i]);
+        }
+        printf("\n");
+    }
+}
+
+// Menu function
+int menu() {
+    int ch;
+    printf("\n**MENU**\n");
+    printf("1. Read Matrix\n");
+    printf("2. Display Matrix\n");
+    printf("3. Transpose\n");
+    printf("4. Exit\n");
+    printf("Enter your choice: ");
+    scanf("%d", &ch);
+    return ch;
+}
+
+// Main logic function
+void process() {
+    int mat[MAX][MAX], r = 0, c = 0, ch;
+
+    while ((ch = menu()) != 4) {
+        switch (ch) {
+            case 1:
+                readMatrix(mat, &r, &c);
+                break;
+            case 2:
+                displayMatrix(mat, r, c);
+                break;
+            case 3:
+                transposeMatrix(mat, r, c);
+                break;
+            default:
+                printf("**Invalid choice. Try again**\n");
+        }
+    }
+}
+
+int main() {
+    printf("TRANSPOSE OF A MATRIX\n---------------------\n");
+    process();
+    return 0;
+}
