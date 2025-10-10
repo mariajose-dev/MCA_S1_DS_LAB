@@ -1,0 +1,88 @@
+/*
+Polynomial Subtraction @Maria Jose
+Roll No: 42
+Completed Date: 12/08/2025
+*/
+
+#include <stdio.h>
+
+#define MAX 10  // maximum degree of polynomial
+
+// Function to read a polynomial
+void readPolynomial(int coeff[], int *degree) {
+    int i;
+    printf("Enter the degree of the polynomial: ");
+    scanf("%d", degree);  // read degree of polynomial
+
+    printf("Enter the coefficients from highest degree to constant term:-\n");
+    for(i = *degree; i >= 0; i--) {  // loop from highest degree down to 0
+        printf("Coefficient of x^%d: ", i);
+        scanf("%d", &coeff[i]);      // store coefficient in array
+    }
+}
+
+// Function to display a polynomial
+void displayPolynomial(int coeff[], int degree) {
+    int i;
+    int first = 1; // flag for first term (to handle '+' sign)
+    for(i = degree; i >= 0; i--) {  // loop from highest degree to 0
+        if(coeff[i] != 0) {         // display only non-zero terms
+            if(!first && coeff[i] > 0)  // print '+' for positive terms except first
+                printf(" + ");
+
+            if(i == 0)              // constant term
+                printf("%d", coeff[i]);
+            else if(i == 1)         // x term (power 1)
+                printf("%dx", coeff[i]);
+            else                     // x^i terms (i >= 2)
+                printf("%dx^%d", coeff[i], i);
+
+            first = 0;               // after printing first term
+        }
+    }
+    if(first)   // if all coefficients are zero
+        printf("0");
+
+    printf("\n");  // move to next line
+}
+
+// Function to subtract two polynomials (coeff1 - coeff2)
+int subtractPolynomials(int coeff1[], int degree1, int coeff2[], int degree2, int result[]) {
+    int i;
+    int maxDegree = (degree1 > degree2) ? degree1 : degree2; // max degree of result
+
+    for(i = 0; i <= maxDegree; i++) {
+        int c1 = (i <= degree1) ? coeff1[i] : 0;  // if term exists in first polynomial
+        int c2 = (i <= degree2) ? coeff2[i] : 0;  // if term exists in second polynomial
+        result[i] = c1 - c2;                     // subtract coefficients
+    }
+
+    return maxDegree;  // return degree of difference
+}
+
+// Main function
+int main() {
+    int coeff1[MAX], coeff2[MAX], diff[MAX];  // arrays for polynomials
+    int degree1, degree2, diffDegree;
+
+    printf("POLYNOMIAL SUBTRACTION\n----------------------\n");
+    
+    printf("\nfirst polynomial\n");
+    readPolynomial(coeff1, &degree1);  // read first polynomial
+
+    printf("\nsecond polynomial\n");
+    readPolynomial(coeff2, &degree2);  // read second polynomial
+
+    printf("\nFirst Polynomial is ");
+    displayPolynomial(coeff1, degree1); // display first polynomial
+
+    printf("Second Polynomial is ");
+    displayPolynomial(coeff2, degree2); // display second polynomial
+
+    diffDegree = subtractPolynomials(coeff1, degree1, coeff2, degree2, diff); // subtract
+
+    printf("\nDifference of polynomials (First - Second) is ");
+    displayPolynomial(diff, diffDegree); // display result
+
+    return 0;  // end of program
+}
